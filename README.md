@@ -17,7 +17,7 @@ I try to simulate the random wallpaper change configuration in xfce4.
 + To launch the software, I use the ALT+F2 option and the program binary path, or you
   can add it to the system startup. This works with an infinite loop and changes the 
   wallpaper of the desktop to the minutes that are configured in the const MINUTES. 
-+ To finish the program you can use ```ps -aux | grep wallchange``` and 
++ To finish the program you can use ```ps -aux | grep wallchanger``` and 
   then ```kill <Id-Process>```.
 
 __TODO: Improvements__
@@ -30,6 +30,7 @@ __TODO: Improvements__
 + Improve, if possible, the generation of random numbers.
 + Check the posibility of the creation of a Restful Api or server with the
   ability of get the file name of the current image and change configuration values.
++ Check the use of WalkDir Crate
 
 ## License
 
