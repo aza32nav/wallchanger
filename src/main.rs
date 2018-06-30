@@ -10,22 +10,25 @@ extern crate walkdir;
 use walkdir::WalkDir;
 
 const ADJUST: &'static str = "'scaled'";
-const PATH: &'static str = "/Imágenes/Wallpapers";
-const MINUTES: u64 = 17;
+
 
 fn main() {
-    let path_dir = format!("{}{}",
-                            env::var("HOME")
-                                .expect("Fail: variable HOME was not found "),
-                            PATH);
+    let path_dir: String = env::var("WALLCHANGER_PATH")
+                            .expect("Fail: WALLCHANGER_PATH not found ");
+    let minutes: u64 = env::var("WALLCHANGER_MINUTES")
+                            .expect("Fail: WALLCHANGER_MINUTES not found")
+                            .trim()
+                            .parse()
+                            .expect("Failed to parse as u64");
 
     loop {
         let image_file = get_image_path(&path_dir);
 
-        // println!("Image: {}", image_file);
+        // println!("Image: {},\n minutes: minutes {}",
+        //     image_file, minutes);
         execute_command(&image_file);
 
-        thread::sleep(Duration::from_secs(60 * MINUTES));
+        thread::sleep(Duration::from_secs(60 * minutes));
     }
 }
 

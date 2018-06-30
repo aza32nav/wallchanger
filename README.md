@@ -2,31 +2,35 @@
 
 This program is for change wallpaper every (n) minutes.
 
-This working only in gnome3.
+This working only in __gnome3__.
 
-I try to simulate the random wallpaper change configuration in xfce4.
+I try to simulate the random wallpaper change configuration in __xfce4__.
 
-Program written in rust.
+Program written in __rust__.
 
-## Warning: This is a personal project and is still under development.
-## Needs many improvements and more error handling.
+### Warning: This is a personal project and is still under development.
+### Needs many improvements and more error handling.
 
 + This only accept images("jpg", "jpeg", "png").
-+ The arguments minutes, image adjustment, and the directory path is still
-  inside the source code, so you have to configure them before compiling.
-+ The program works but to avoid possible errors check its source code, it is quite
-  simple.
-+ To launch the software, I use the ALT+F2 option and the program binary path, or you
-  can add it to the system startup. This works with an infinite loop and changes the 
-  wallpaper of the desktop to the minutes that are configured in the const MINUTES. 
++ The arguments image adjustment is still inside the source code,
+  so you have to configure them before compiling.
++ The directory path and minutes configuration is there in the environmental
+  variables: _WALLCHANGER_PATH and WALLCHANGER_MINUTES_ add please in the
+  bashrc, zshrc or profiles
++ The program works but to avoid possible errors check its source code, it is
+  quite simple.
++ To launch the software, I use the ALT+F2 option and the program binary path,
+  or you can add it to the system startup. This works with an infinite loop
+  and changes the wallpaper of the desktop to the minutes that are configured
+  in the environment variable WALLCHANGER_MINUTES. 
 + To finish the program you can use ```ps -aux | grep wallchanger``` and 
   then ```kill <Id-Process>```.
 + Use walkdir crate to traverse the directory and its subdirectories.
 
 __TODO: Improvements__
 
-+ Use a command-line arguments approach or use a configuration file approach with
-  (Minutes, image adjustment, and directory path).
++ Check a command-line arguments approach or use a configuration file approach
+  with (Minutes, image adjustment, and directory path).
 + Improve error handling.
 + Check a concurrent approach.
 + Improve, if possible, the generation of random numbers.
