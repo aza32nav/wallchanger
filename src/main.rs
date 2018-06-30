@@ -1,49 +1,74 @@
 use std::env;
-use std::fs;
 use std::process::Command;
 use std::time::Duration;
 use std::thread;
-use std::io;
 
 extern crate rand;
 use rand::Rng;
 
+extern crate walkdir;
+use walkdir::WalkDir;
+
 const ADJUST: &'static str = "'scaled'";
-const PATH: &'static str = "/Wallpapers/";
+const PATH: &'static str = "/Imágenes/Wallpapers";
 const MINUTES: u64 = 17;
 
 fn main() {
     let path_dir = format!("{}{}",
-                            env::var("HOME").unwrap(),
+                            env::var("HOME")
+                                .expect("Fail: variable HOME was not found "),
                             PATH);
-
-    // println!("{}", path_dir);
 
     loop {
         let image_file = get_image_path(&path_dir);
-        let print_ima_path = &image_file.unwrap();
 
-        // println!("the image is: {}", print_ima_path);
-        execute_command(&print_ima_path);
+        // println!("Image: {}", image_file);
+        execute_command(&image_file);
 
         thread::sleep(Duration::from_secs(60 * MINUTES));
     }
 }
 
-fn get_image_path(path_dir: &str) -> io::Result<String>{
+fn get_image_path(path: &str) -> String {
 
-    let files = fs::read_dir(path_dir)?;
+    let walker: Vec<_> = WalkDir::new(path).into_iter().collect();
+    
+    loop {
+        let rand_num =  rand::thread_rng().gen_range(1, walker.len());
+        // println!("{:?} de {:?}",rand_num, walker.len()); 
+        let img = &walker[rand_num];
+        if let Ok(img_path) = img {
+            if img_path.file_type().is_file() { // avoid directories
+                let path = img_path.path().to_str();
+                let path_string = path
+                    .expect("Failed returning the path");
 
-    let vec_files: Vec<_> = files.collect();
+                // Validate image file in progress    
+                let path_split: Vec<_> = path_string.split('/').collect();
+                let filename = path_split[path_split.len() - 1];
+                // println!("filename: {:?}", filename);
+                if !filename.starts_with('.') {
+                    // println!("is hidden file: {:?}", filename.starts_with('.'));
+                    let filename_split: Vec<_> = filename.split('.').collect();
+                    // println!("{:?}", filename_split);
+                    let extension = filename_split[filename_split.len() - 1];
+                    // println!("extension: {:?}", extension);
+                    match extension {
+                        "jpg" | "JPG" | "jpeg" | "JPEG" | "png" |
+                        "PNG" => return path_string.to_string(),
+                        _ => continue,
+                    }
+                } else {
+                    // println!("Is a hidden file");
+                    continue;
+                }
 
-    let rand_num =  rand::thread_rng().gen_range(1, vec_files.len());
-
-    let file = match &vec_files[rand_num] {
-        Ok(dir) => dir.path().to_str().unwrap().to_string(),
-        Err(e) => format!("Error: {}", e),
-    };
-
-    Ok(file)
+            } else {
+                // println!("Fail: is not a file: {:?}", img_path.path());
+                continue;
+            }
+        }
+    }
 }
 
 fn execute_command(img_file: &str) {

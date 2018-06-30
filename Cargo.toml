@@ -1,7 +1,8 @@
 [package]
 name = "wallchanger"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["aza32nav <ivan32v7@tuta.io>"]
 
 [dependencies]
 rand = "0.5.0"
+walkdir = "2.1.4"
