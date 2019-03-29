@@ -75,6 +75,7 @@ fn get_image_path(path: &str) -> String {
 }
 
 fn execute_command(img_file: &str) {
+    let img_fi = format!("file://{}", img_file);
     Command::new("gsettings")
         .arg("set")
         .arg("org.gnome.desktop.background")
@@ -87,7 +88,7 @@ fn execute_command(img_file: &str) {
         .arg("set")
         .arg("org.gnome.desktop.background")
         .arg("picture-uri")
-        .arg(img_file)
+        .arg(img_fi)
         .spawn()
         .expect("The change wallpaper command fiiled to start");
 }
