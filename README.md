@@ -2,7 +2,7 @@
 
 This program is for change wallpaper every (n) minutes.
 
-This working only in __gnome3__.
+This working only in __Cinnamon desktop__.
 
 I try to simulate the random wallpaper change configuration in __xfce4__.
 
@@ -29,8 +29,7 @@ Program written in __rust__.
 
 __TODO: Improvements__
 
-+ Check a command-line arguments approach or use a configuration file approach
-  with (Minutes, image adjustment, and directory path).
++ Check a configuration file approach with (Minutes, image adjustment, and directory path).
 + Improve error handling.
 + Check a concurrent approach.
 + Improve, if possible, the generation of random numbers.
