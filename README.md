@@ -2,7 +2,7 @@
 
 This program is for change wallpaper every (n) minutes.
 
-This working only in __Cinnamon desktop__.
+This working in __Cinnamon desktop__(I still haven't checked it in gnome3).
 
 I try to simulate the random wallpaper change configuration in __xfce4__.
 
